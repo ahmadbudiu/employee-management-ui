@@ -1,0 +1,108 @@
+<form [formGroup]="employeeFrom" (submit)="submitForm()">
+    <div class="form-group">
+        <label for="first_name">First Name</label>
+        <input type="text" class="form-control" id="first_name" formControlName="first_name" placeholder="First Name">
+        <app-input-message [control]="form.first_name" [label]="'First Name'"></app-input-message>
+    </div>
+    <div class="form-group">
+        <label for="last_name">Last Name</label>
+        <input type="text" class="form-control" id="last_name" formControlName="last_name" placeholder="Last Name">
+        <app-input-message [control]="form.last_name" [label]="'Last Name'"></app-input-message>
+    </div>
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input type="text" class="form-control" id="email" formControlName="email" placeholder="Email">
+        <app-input-message [control]="form.email" [label]="'Email'"></app-input-message>
+    </div>
+    <div class="form-group">
+        <label for="phone">Phone</label>
+        <input type="number" class="form-control" id="phone" formControlName="phone" placeholder="Phone">
+        <app-input-message [control]="form.phone" [label]="'Phone'"></app-input-message>
+    </div>
+    <div class="form-group">
+        <label for="position">Position</label>
+        <select class="form-control" id="position" formControlName="position">
+            <option *ngFor="let position of positions" value="{{ position }}">{{ position }}</option>
+        </select>
+        <app-input-message [control]="form.position" [label]="'Position'"></app-input-message>
+    </div>
+    <div class="form-group">
+        <label for="bank">Bank</label>
+        <select class="form-control" id="bank" formControlName="bank">
+            <option *ngFor="let bank of banks" value="{{ bank }}">{{ bank }}</option>
+        </select>
+        <app-input-message [control]="form.bank" [label]="'Bank'"></app-input-message>
+    </div>
+    <div class="form-group">
+        <label for="bank_no">Bank No</label>
+        <input type="number" class="form-control" id="bank_no" formControlName="bank_no" placeholder="Bank No">
+        <app-input-message [control]="form.bank_no" [label]="'Bank No'"></app-input-message>
+    </div>
+    <div class="form-group">
+        <label for="zip_code">Zip Code</label>
+        <input type="number" class="form-control" id="zip_code" formControlName="zip_code" placeholder="Zip Code">
+        <app-input-message [control]="form.zip_code" [label]="'Zip Code'"></app-input-message>
+    </div>
+    <div class="form-group">
+        <label for="identity_number">Identity Number</label>
+        <input type="number" class="form-control" id="identity_number" formControlName="identity_number" placeholder="Identity Number">
+        <app-input-message [control]="form.identity_number" [label]="'Identity Number'"></app-input-message>
+    </div>
+    <div class="form-group">
+        <label for="province_id">Province</label>
+        <select class="form-control" id="province_id" formControlName="province_id" (change)="onProvinceChanged()">
+            <option *ngFor="let province of provinces" value="{{ province.id }}">{{ province.name }}</option>
+        </select>
+        <app-input-message [control]="form.province_id" [label]="'Province'"></app-input-message>
+    </div>
+    <div class="form-group">
+        <label for="city_id">City</label>
+        <select class="form-control" id="city_id" formControlName="city_id" (change)="onCityChanged()">
+            <option *ngFor="let city of cities" value="{{ city.id }}">{{ city.name }}</option>
+        </select>
+        <app-input-message [control]="form.city_id" [label]="'City'"></app-input-message>
+    </div>
+    <div class="form-group">
+        <label for="district_id">District</label>
+        <select class="form-control" id="district_id" formControlName="district_id" (change)="onDistrictChanged()">
+            <option *ngFor="let district of districts" value="{{ district.id }}">{{ district.name }}</option>
+        </select>
+        <app-input-message [control]="form.district_id" [label]="'District'"></app-input-message>
+    </div>
+    <div class="form-group">
+        <label for="village_id">Village</label>
+        <select class="form-control" id="village_id" formControlName="village_id">
+            <option *ngFor="let village of villages" value="{{ village.id }}">{{ village.name }}</option>
+        </select>
+        <app-input-message [control]="form.village_id" [label]="'Village'"></app-input-message>
+    </div>
+    <div class="form-group">
+        <label for="address">Address</label>
+        <input type="text" class="form-control" id="address" formControlName="address" placeholder="Address">
+        <app-input-message [control]="form.address" [label]="'Address'"></app-input-message>
+    </div>
+    <div class="form-group">
+        <label for="dob">DOB</label>
+        <input
+                class="form-control"
+                id="dob"
+                name="dob"
+                formControlName="dob"
+                [dpDayPicker]="{format: 'YYYY-MM-DD'}"
+                theme="dp-material" />
+        <app-input-message [control]="form.dob" [label]="'Date of Birth'"></app-input-message>
+    </div>
+    <div class="form-group">
+        <label for="identity">Identity Image</label>
+        <input
+                type="file"
+                class="form-control"
+                id="identity"
+                [(ngModel)]="identity"
+                [ngModelOptions]="{standalone: true}"
+                (change)="onSelectFile($event)"
+                accept="image/x-png,image/gif,image/jpeg"
+                placeholder="Identity Image">
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+</form>

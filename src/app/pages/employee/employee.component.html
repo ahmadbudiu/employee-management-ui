@@ -1,0 +1,104 @@
+<div id="employee-page">
+    <div class="row">
+        <div fxFlex fxLayout="row" fxLayoutAlign="space-between">
+            <h2>Employees</h2>
+            <div fxLayoutGap="10px">
+                <button class="btn btn-primary" (click)="openCreateModal(createEmployeeModal)">
+                    Add new
+                </button>
+                <button class="btn btn-info" (click)="openFilterModal(filterEmployeeModal)">
+                    Filter
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <table class="table">
+            <thead class="thead-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Phone</th>
+                <th scope="col">DOB</th>
+                <th scope="col">Address</th>
+                <th scope="col">Position</th>
+                <th scope="col">Identity</th>
+                <th scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let employee of employees; index as i">
+                <th scope="row">{{ (i + 1) }}</th>
+                <td>{{ employee.first_name + ' ' + employee.last_name }}</td>
+                <td>{{ employee.phone }}</td>
+                <td>{{ employee.dob }}</td>
+                <td>{{ employee.address }}</td>
+                <td>{{ employee.position }}</td>
+                <td>
+                    <button class="btn btn-outline-secondary" (click)="openIdentityModal(identityModal, employee)">
+                        <bi name="eye"></bi>
+                    </button>
+                </td>
+                <td fxLayoutGap="10px">
+                    <button class="btn btn-outline-primary" (click)="openUpdateModal(updateEmployeeModal, employee)">
+                        <bi name="pencil"></bi>
+                    </button>
+                    <button class="btn btn-outline-danger" (click)="deleteEmployee(employee.id)">
+                        <bi name="trash"></bi>
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<ng-template #createEmployeeModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Add new Employee</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <app-employee-form (finish)="finishSubmission()" [type]="'create'"></app-employee-form>
+    </div>
+</ng-template>
+
+<ng-template #updateEmployeeModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Update Employee</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <app-employee-form (finish)="finishSubmission()" [employee]="employee" [type]="'update'"></app-employee-form>
+    </div>
+</ng-template>
+
+<ng-template #filterEmployeeModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Filter Employee</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <app-employee-filter (finish)="filterEmployee($event)"></app-employee-filter>
+    </div>
+</ng-template>
+
+<ng-template #identityModal let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title">Identity Image</h4>
+        <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <div fxFlex fxLayout="row" fxLayoutAlign="center">
+            <img src="{{ employee.identity }}" class="img-fluid" />
+        </div>
+    </div>
+</ng-template>
